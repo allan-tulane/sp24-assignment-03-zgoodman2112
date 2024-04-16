@@ -22,18 +22,18 @@ very clever reason.
 **1a)** Given a $N$ dollars, state a greedy algorithm for producing
 as few coins as possible that sum to $N$.
 
-**enter answer in `answers.md`**
-
+For any given amount $N$ (expressed in dollars), the process involves identifying the largest value of $k$, so that $2^k$ is less than or equal to $N$. This denomination is then subtracted from $N$, and the procedure is repeated with the remaining amount until $N$ becomes zero.
 
 **1b)** Prove that this algorithm is optimal by proving the greedy
   choice and optimal substructure properties.
 
-**enter answer in `answers.md`**
+By choosing the largest possible denomination $2^k$ every time, you can ensure the largest possible amount is subtracted from $N$. Then, when a new coin needs to be used, the largest possible amount will against be subtracted from $N$ as this process is repeated. Each repitition of this process is done optimally, therefore conducting each subproblem using this greedy strategy, we can confirm the overall solution is optimal.
 
 
 **1c)** What is the work and span of your algorithm?
 
-**enter answer in `answers.md`**
+The work is O(logn).
+The span is O(logn).
 
 
 ## Part 2: Making Change Again
