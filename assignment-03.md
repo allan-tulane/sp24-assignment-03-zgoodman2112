@@ -51,15 +51,15 @@ possible?
   work in Fortuito. Give a simple counterexample that shows that the
   greedy algorithm does not produce the fewest number of coins.
   
-**enter answer in `answers.md`**
 
+In the case that you need $8, meaning N=8, and there are coins of denominations [4, 2, 1]. The greedy algorithm would give you one 4, and two 2s. Instead, the most optimal solution would be to receive two 4s.
 
 **2b)** Since you paid attention in Algorithms class, you realize that
   while this problem does not have the greedy choice property it does
   have an optimal substructure property. State and prove this
   property.
 
-**enter answer in `answers.md`**
+This is the optimal substructure because at every single step, it will use the least amount of coins needed by using the largest denomination that is less than N. Since optimal solutions for subproblems will use the same approach as the first problem, this will continue.
 
 
 **2c)** Use this optimal substructure property to design a
@@ -67,8 +67,14 @@ possible?
   or bottom-up memoization to avoid recomputing solutions to
   subproblems, what is the work and span of your approach?
 
-**enter answer in `answers.md`**
+Using the bottom-up approach, to set up the algorithm, let N be the total amount of change needed. D will be an array that contains all of the denominations available. C(i) will be the minimum number of coins needed to make change for amount i. C(0)=0, because no coins are needed to make zero. 
 
+Then, from amount i from 1 to N, for each denomination d in D, if i>=d and C(i-d) does not equal infinity, then C(i) = min(C(i), C(i-d) + 1). This update will check if taking one coin of denomination d, then making change for i-d with the fewest possible coins, results in fewer coins than before for i.
+
+This will result with C(N) holding the minimum number of coins need to make change for N. If not, that means change cannot successfully be made with the available denominations.
+
+Work: O(N * k)    where k is the number of possible denominations.
+Span: O(N)
 
 ## Part 3: Edit Distance
 
