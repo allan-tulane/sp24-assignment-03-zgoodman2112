@@ -30,6 +30,7 @@ def MED(S, T):
                        MED(S[1:], T)) 
 
 def fast_MED(S, T, MED={}):
+    # TODO -  implement top-down memoization
 
     if (S, T) in MED:
         return MED[(S, T)]
@@ -46,6 +47,7 @@ def fast_MED(S, T, MED={}):
     return MED[(S, T)]
 
 def fast_align_MED(S, T, MED={}):
+    # TODO - keep track of alignment
 
     if (S, T) in MED:
         return MED[(S, T)]
