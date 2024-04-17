@@ -16,58 +16,52 @@ alignments = [
     ('AAAGAATTCA', 'AAA---T-CA')
 ]
 
-def MED(source, target):
+def MED(S, T):
     # TO DO - modify to account for insertions, deletions and substitutions
-    if not source:
-        return len(target)
-    if not target:
-        return len(source)
+    if not S:
+        return len(T)
+    if not T:
+        return len(S)
 
-    if source[0] == target[0]:
-        return MED(source[1:], target[1:])
+    if S[0] == T[0]:
+        return MED(S[1:], T[1:])
     else:
-        return 1 + min(MED(source, target[1:]),  
-                       MED(source[1:], target)) 
+        return 1 + min(MED(S, T[1:]),  
+                       MED(S[1:], T)) 
 
-def fast_MED(source, target, memo=None):
-    # TODO -  implement top-down memoization
-    if memo is None:
-        memo = {}
+def fast_MED(S, T, MED={}):
 
-    if (source, target) in memo:
-        return memo[(source, target)]
+    if (S, T) in MED:
+        return MED[(S, T)]
 
-    if not source:
-        memo[(source, target)] = len(target)
-    elif not target:
-        memo[(source, target)] = len(source)
-    elif source[0] == target[0]:
-        memo[(source, target)] = fast_MED(source[1:], target[1:], memo)
+    if not S:
+        MED[(S, T)] = len(T)
+    elif not T:
+        MED[(S, T)] = len(S)
+    elif S[0] == T[0]:
+        MED[(S, T)] = fast_MED(S[1:], T[1:], MED)
     else:
-        memo[(source, target)] = 1 + min(fast_MED(source, target[1:], memo),
-                                         fast_MED(source[1:], target, memo))
-    return memo[(source, target)]
+        MED[(S, T)] = 1 + min(fast_MED(S, T[1:], MED),
+                                         fast_MED(S[1:], T, MED))
+    return MED[(S, T)]
 
-def fast_align_MED(source, target, memo=None):
-    # TODO - keep track of alignment
-    if memo is None:
-        memo = {}
+def fast_align_MED(S, T, MED={}):
 
-    if (source, target) in memo:
-        return memo[(source, target)]
+    if (S, T) in MED:
+        return MED[(S, T)]
 
-    if not source:
-        memo[(source, target)] = ("-" * len(target), target)
-    elif not target:
-        memo[(source, target)] = (source, "-" * len(source))
-    elif source[0] == target[0]:
-        aligned_s, aligned_t = fast_align_MED(source[1:], target[1:], memo)
-        memo[(source, target)] = (source[0] + aligned_s, target[0] + aligned_t)
+    if not S:
+        MED[(S, T)] = ("-" * len(T), T)
+    elif not T:
+        MED[(S, T)] = (S, "-" * len(S))
+    elif S[0] == T[0]:
+        aligned_s, aligned_t = fast_align_MED(S[1:], T[1:], MED)
+        MED[(S, T)] = (S[0] + aligned_s, T[0] + aligned_t)
     else:
-        insert_s, insert_t = fast_align_MED(source, target[1:], memo)
-        delete_s, delete_t = fast_align_MED(source[1:], target, memo)
+        insert_s, insert_t = fast_align_MED(S, T[1:], MED)
+        delete_s, delete_t = fast_align_MED(S[1:], T, MED)
         if 1 + len(insert_s) <= 1 + len(delete_s):
-            memo[(source, target)] = ("-" + insert_s, target[0] + insert_t)
+            MED[(S, T)] = ("-" + insert_s, T[0] + insert_t)
         else:
-            memo[(source, target)] = (source[0] + delete_s, "-" + delete_t)
-    return memo[(source, target)]
+            MED[(S, T)] = (S[0] + delete_s, "-" + delete_t)
+    return MED[(S, T)]
