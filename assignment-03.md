@@ -22,18 +22,18 @@ very clever reason.
 **1a)** Given a $N$ dollars, state a greedy algorithm for producing
 as few coins as possible that sum to $N$.
 
-For any given amount $N$ (expressed in dollars), the process involves identifying the largest value of $k$, so that $2^k$ is less than or equal to $N$. This denomination is then subtracted from $N$, and the procedure is repeated with the remaining amount until $N$ becomes zero.
+**enter answer in `answers.md`**
+
 
 **1b)** Prove that this algorithm is optimal by proving the greedy
   choice and optimal substructure properties.
 
-By choosing the largest possible denomination $2^k$ every time, you can ensure the largest possible amount is subtracted from $N$. Then, when a new coin needs to be used, the largest possible amount will against be subtracted from $N$ as this process is repeated. Each repitition of this process is done optimally, therefore conducting each subproblem using this greedy strategy, we can confirm the overall solution is optimal.
+**enter answer in `answers.md`**
 
 
 **1c)** What is the work and span of your algorithm?
 
-The work is O(logn).
-The span is O(logn).
+**enter answer in `answers.md`**
 
 
 ## Part 2: Making Change Again
@@ -51,15 +51,15 @@ possible?
   work in Fortuito. Give a simple counterexample that shows that the
   greedy algorithm does not produce the fewest number of coins.
   
+**enter answer in `answers.md`**
 
-In the case that you need $8, meaning N=8, and there are coins of denominations [4, 2, 1]. The greedy algorithm would give you one 4, and two 2s. Instead, the most optimal solution would be to receive two 4s.
 
 **2b)** Since you paid attention in Algorithms class, you realize that
   while this problem does not have the greedy choice property it does
   have an optimal substructure property. State and prove this
   property.
 
-This is the optimal substructure because at every single step, it will use the least amount of coins needed by using the largest denomination that is less than N. Since optimal solutions for subproblems will use the same approach as the first problem, this will continue.
+**enter answer in `answers.md`**
 
 
 **2c)** Use this optimal substructure property to design a
@@ -67,14 +67,8 @@ This is the optimal substructure because at every single step, it will use the l
   or bottom-up memoization to avoid recomputing solutions to
   subproblems, what is the work and span of your approach?
 
-Using the bottom-up approach, to set up the algorithm, let N be the total amount of change needed. D will be an array that contains all of the denominations available. C(i) will be the minimum number of coins needed to make change for amount i. C(0)=0, because no coins are needed to make zero. 
+**enter answer in `answers.md`**
 
-Then, from amount i from 1 to N, for each denomination d in D, if i>=d and C(i-d) does not equal infinity, then C(i) = min(C(i), C(i-d) + 1). This update will check if taking one coin of denomination d, then making change for i-d with the fewest possible coins, results in fewer coins than before for i.
-
-This will result with C(N) holding the minimum number of coins need to make change for N. If not, that means change cannot successfully be made with the available denominations.
-
-Work: O(N * k)    where k is the number of possible denominations.
-Span: O(N)
 
 ## Part 3: Edit Distance
 
@@ -108,4 +102,3 @@ algorithm in Python that was horribly inefficient.
 
 Implement `fast_align_MED` to return the aligned versions of $S$ and $T$,
 and test your code with `test_alignment`.
-
